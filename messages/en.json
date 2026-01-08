@@ -1,0 +1,89 @@
+{
+  "common": {
+    "shopNow": "Shop Now",
+    "viewAll": "View All",
+    "addToCart": "Add to Cart",
+    "addedToCart": "Added to Cart",
+    "soldOut": "Sold Out",
+    "backToShop": "Back to Shop",
+    "backToCart": "Back to Cart",
+    "continueShopping": "Continue Shopping",
+    "quantity": "Quantity",
+    "inStock": "in stock",
+    "free": "Free",
+    "total": "Total",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "login": "Login",
+    "logout": "Logout",
+    "search": "Search",
+    "cart": "Cart"
+  },
+  "home": {
+    "tagline": "Fashion & Art — Express Your Style",
+    "collections": "Collections",
+    "featuredProducts": "Featured Products",
+    "limitedEdition": "Limited Edition",
+    "limitedEditionDesc": "Each piece is crafted with care and produced in limited quantities. Once sold out, they are gone forever.",
+    "step1": "Browse",
+    "step2": "Order",
+    "step3": "Enjoy",
+    "about": "About",
+    "aboutDesc": "FreeTenshi is a contemporary fashion and art brand. We create limited edition streetwear and collectibles with unique designs. Every piece tells a story, and we ship worldwide with free delivery."
+  },
+  "product": {
+    "productNotFound": "Product Not Found",
+    "outOfStock": "This item is currently out of stock",
+    "freeShipping": "Free worldwide shipping",
+    "shippingInfo": "Shipping Info",
+    "delivery": "Delivery",
+    "deliveryTime": "3-7 business days",
+    "freeWorldwide": "Free worldwide",
+    "returns": "Returns",
+    "returnDays": "14 days"
+  },
+  "cart": {
+    "title": "Cart",
+    "empty": "Your cart is empty",
+    "remove": "Remove",
+    "checkout": "Checkout"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "noItems": "No items to checkout",
+    "loginToContinue": "Login to Continue",
+    "loginDesc": "Sign in to complete your purchase",
+    "loginWithGoogle": "Login with Google",
+    "account": "Account",
+    "shippingAddress": "Shipping Address",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "address": "Address",
+    "addressDetail": "Apartment, suite, etc. (optional)",
+    "city": "City",
+    "postalCode": "Postal Code",
+    "phone": "Phone",
+    "payment": "Payment",
+    "currency": "Currency",
+    "krw": "Korean Won (KRW)",
+    "usd": "US Dollar (USD)",
+    "pay": "Pay",
+    "securePayment": "Secure payment powered by Stripe",
+    "orderSummary": "Order Summary"
+  },
+  "collections": {
+    "allProducts": "All Products",
+    "items": "items"
+  },
+  "footer": {
+    "shop": "Shop",
+    "allProducts": "All Products",
+    "newArrivals": "New Arrivals",
+    "support": "Support",
+    "contact": "Contact",
+    "shippingReturns": "Shipping & Returns",
+    "faq": "FAQ",
+    "follow": "Follow",
+    "copyright": "© 2024 FreeTenshi. All rights reserved."
+  }
+}

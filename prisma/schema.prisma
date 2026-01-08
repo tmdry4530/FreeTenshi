@@ -1,0 +1,192 @@
+// FreeTenshi - Fashion/Art Commerce Platform
+// Prisma Schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ============================================
+// Admin
+// ============================================
+
+model Admin {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String
+  name      String?
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ============================================
+// Products & Collections
+// ============================================
+
+model Collection {
+  id          String    @id @default(cuid())
+  name        String
+  nameKo      String?
+  nameEn      String?
+  slug        String    @unique
+  description String?   @db.Text
+  image       String?
+  
+  products    Product[]
+  
+  isActive    Boolean   @default(true)
+  sortOrder   Int       @default(0)
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Product {
+  id              String   @id @default(cuid())
+  name            String
+  nameKo          String?
+  nameEn          String?
+  slug            String   @unique
+  description     String?  @db.Text
+  descriptionKo   String?  @db.Text
+  descriptionEn   String?  @db.Text
+  
+  // Pricing (stored in smallest unit - cents/won)
+  priceKRW        Int
+  priceUSD        Int?
+  
+  // Images
+  images          String[] // Array of image URLs
+  
+  // Inventory
+  stock           Int      @default(0)
+  maxPerOrder     Int      @default(1)
+  
+  // Relations
+  collectionId    String?
+  collection      Collection? @relation(fields: [collectionId], references: [id])
+  
+  orderItems      OrderItem[]
+  cartItems       CartItem[]
+  
+  // Status
+  isActive        Boolean  @default(true)
+  isFeatured      Boolean  @default(false)
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@index([collectionId])
+  @@index([isActive])
+}
+
+// ============================================
+// Shopping Cart
+// ============================================
+
+model CartItem {
+  id        String   @id @default(cuid())
+  quantity  Int      @default(1)
+  
+  sessionId String   // For guest carts
+  
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@unique([sessionId, productId])
+}
+
+// ============================================
+// Orders & Payments
+// ============================================
+
+model Order {
+  id              String      @id @default(cuid())
+  orderNumber     String      @unique
+  
+  // Customer info (stored directly, no user account required)
+  email           String
+  firstName       String
+  lastName        String
+  phone           String
+  
+  // Shipping address
+  address         String
+  addressDetail   String?
+  city            String
+  postalCode      String
+  country         String      @default("KR")
+  
+  // Pricing
+  subtotal        Int         // In smallest currency unit
+  total           Int
+  currency        Currency    @default(KRW)
+  
+  // Payment
+  paymentMethod   PaymentMethod
+  paymentStatus   PaymentStatus @default(PENDING)
+  paymentIntentId String?     // Stripe payment intent ID
+  
+  // Status
+  status          OrderStatus @default(PENDING)
+  
+  // Relations
+  items           OrderItem[]
+  
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  
+  @@index([email])
+  @@index([status])
+}
+
+model OrderItem {
+  id          String   @id @default(cuid())
+  quantity    Int
+  priceAtTime Int      // Price at the time of order
+  currency    Currency
+  
+  orderId     String
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  
+  productId   String
+  product     Product  @relation(fields: [productId], references: [id])
+  
+  createdAt   DateTime @default(now())
+}
+
+enum Currency {
+  KRW
+  USD
+  JPY
+}
+
+enum PaymentMethod {
+  STRIPE_KRW
+  STRIPE_USD
+  STRIPE_JPY
+}
+
+enum PaymentStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
