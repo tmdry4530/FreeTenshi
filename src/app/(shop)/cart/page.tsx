@@ -143,9 +143,6 @@ export default function CartPage() {
               </Button>
             </Link>
 
-            <p className="text-xs text-[#666] text-center mt-4">
-              NFT will be minted upon payment
-            </p>
           </div>
         </div>
       </div>

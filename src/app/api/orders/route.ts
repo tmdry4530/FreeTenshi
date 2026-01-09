@@ -3,29 +3,27 @@ import prisma from '@/lib/prisma'
 import { z } from 'zod'
 
 const createOrderSchema = z.object({
-  userId: z.string(),
+  email: z.string().email(),
+  firstName: z.string(),
+  lastName: z.string(),
+  phone: z.string(),
+  address: z.string(),
+  addressDetail: z.string().optional(),
+  city: z.string(),
+  postalCode: z.string(),
+  country: z.string().default('KR'),
   items: z.array(z.object({
     productId: z.string(),
     quantity: z.number().min(1),
   })),
-  currency: z.enum(['KRW', 'USD', 'JPY', 'ETH', 'USDT', 'USDC']),
-  paymentMethod: z.enum(['STRIPE_KRW', 'STRIPE_USD', 'STRIPE_JPY', 'CRYPTO_ETH', 'CRYPTO_USDT', 'CRYPTO_USDC']),
-  shippingAddress: z.object({
-    name: z.string(),
-    phone: z.string(),
-    address1: z.string(),
-    address2: z.string().optional(),
-    city: z.string(),
-    state: z.string().optional(),
-    postalCode: z.string(),
-    country: z.string(),
-  }).optional(),
+  currency: z.enum(['KRW', 'USD', 'JPY']),
+  paymentMethod: z.enum(['STRIPE_KRW', 'STRIPE_USD', 'STRIPE_JPY']),
 })
 
 function generateOrderNumber(): string {
   const timestamp = Date.now().toString(36).toUpperCase()
   const random = Math.random().toString(36).substring(2, 6).toUpperCase()
-  return `PD-${timestamp}-${random}`
+  return `FT-${timestamp}-${random}`
 }
 
 export async function POST(request: NextRequest) {
@@ -50,14 +48,14 @@ export async function POST(request: NextRequest) {
     for (const item of data.items) {
       const product = products.find((p) => p.id === item.productId)
       if (!product) continue
-      
+
       if (product.stock < item.quantity) {
         return NextResponse.json(
           { success: false, error: `Insufficient stock for ${product.name}` },
           { status: 400 }
         )
       }
-      
+
       if (item.quantity > product.maxPerOrder) {
         return NextResponse.json(
           { success: false, error: `Maximum ${product.maxPerOrder} per order for ${product.name}` },
@@ -71,7 +69,7 @@ export async function POST(request: NextRequest) {
       const product = products.find((p) => p.id === item.productId)!
       const price = data.currency === 'KRW' ? product.priceKRW : (product.priceUSD || 0)
       subtotal += price * item.quantity
-      
+
       return {
         productId: item.productId,
         quantity: item.quantity,
@@ -83,12 +81,19 @@ export async function POST(request: NextRequest) {
     const order = await prisma.order.create({
       data: {
         orderNumber: generateOrderNumber(),
-        userId: data.userId,
+        email: data.email,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        phone: data.phone,
+        address: data.address,
+        addressDetail: data.addressDetail,
+        city: data.city,
+        postalCode: data.postalCode,
+        country: data.country,
         subtotal,
         total: subtotal,
         currency: data.currency,
         paymentMethod: data.paymentMethod,
-        shippingAddress: data.shippingAddress,
         items: {
           create: orderItems,
         },
@@ -115,7 +120,7 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     console.error('Failed to create order:', error)
-    
+
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { success: false, error: 'Invalid request data', details: error.issues },
@@ -133,15 +138,15 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams
-    const userId = searchParams.get('userId')
+    const email = searchParams.get('email')
     const status = searchParams.get('status')
     const page = parseInt(searchParams.get('page') || '1')
     const pageSize = parseInt(searchParams.get('pageSize') || '20')
 
     const where: Record<string, unknown> = {}
 
-    if (userId) {
-      where.userId = userId
+    if (email) {
+      where.email = email
     }
 
     if (status) {
@@ -152,9 +157,8 @@ export async function GET(request: NextRequest) {
       prisma.order.findMany({
         where,
         include: {
-          user: true,
           items: {
-            include: { product: true, nft: true },
+            include: { product: true },
           },
         },
         orderBy: { createdAt: 'desc' },

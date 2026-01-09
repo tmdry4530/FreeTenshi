@@ -13,7 +13,7 @@ test.describe('Admin Dashboard', () => {
     await expect(page.getByText(/total products/i)).toBeVisible()
     await expect(page.getByText(/total orders/i)).toBeVisible()
     await expect(page.getByText(/total users/i)).toBeVisible()
-    await expect(page.getByText(/nfts minted/i)).toBeVisible()
+    await expect(page.getByText(/revenue/i)).toBeVisible()
   })
 
   test('should display recent orders', async ({ page }) => {

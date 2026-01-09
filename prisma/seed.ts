@@ -1,5 +1,4 @@
 import { PrismaClient } from '@prisma/client'
-import { hash } from 'bcryptjs'
 
 const prisma = new PrismaClient()
 
@@ -61,7 +60,6 @@ const products = [
     descriptionKo: '프리미엄 헤비웨이트 코튼 후디. 자수 로고 디테일. 오버사이즈 핏으로 편안한 착용감.',
     priceKRW: 189000,
     priceUSD: 149,
-    priceETH: '0.05',
     images: [
       'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&q=80',
       'https://images.unsplash.com/photo-1578768079052-aa76e52ff62e?w=800&q=80',
@@ -82,7 +80,6 @@ const products = [
     descriptionKo: '클래식 핏 티셔츠. 전면 그래픽 프린트. 100% 오가닉 코튼.',
     priceKRW: 69000,
     priceUSD: 55,
-    priceETH: '0.018',
     images: [
       'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80',
       'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=800&q=80',
@@ -102,7 +99,6 @@ const products = [
     descriptionKo: '클래식 핏 티셔츠. 전면 그래픽 프린트. 100% 오가닉 코튼.',
     priceKRW: 69000,
     priceUSD: 55,
-    priceETH: '0.018',
     images: [
       'https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=800&q=80',
       'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=800&q=80',
@@ -122,7 +118,6 @@ const products = [
     descriptionKo: '릴렉스드 핏 카고 팬츠. 멀티 포켓 디자인. 내구성 있는 코튼 트윌.',
     priceKRW: 159000,
     priceUSD: 125,
-    priceETH: '0.042',
     images: [
       'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800&q=80',
       'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=800&q=80',
@@ -142,7 +137,6 @@ const products = [
     descriptionKo: '헤비웨이트 코튼 스웨트셔츠. 립 커프스와 밑단.',
     priceKRW: 139000,
     priceUSD: 110,
-    priceETH: '0.037',
     images: [
       'https://images.unsplash.com/photo-1572495532056-8583af1cbae0?w=800&q=80',
       'https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=800&q=80',
@@ -163,7 +157,6 @@ const products = [
     descriptionKo: '한정판 지클레 프린트. 아카이벌 페이퍼. 서명 및 넘버링. 50부 한정.',
     priceKRW: 250000,
     priceUSD: 200,
-    priceETH: '0.067',
     images: [
       'https://images.unsplash.com/photo-1549887534-1541e9326642?w=800&q=80',
       'https://images.unsplash.com/photo-1578926375605-eaf7559b1458?w=800&q=80',
@@ -184,7 +177,6 @@ const products = [
     descriptionKo: '한정판 지클레 프린트. 아카이벌 페이퍼. 서명 및 넘버링. 30부 한정.',
     priceKRW: 350000,
     priceUSD: 280,
-    priceETH: '0.093',
     images: [
       'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&q=80',
       'https://images.unsplash.com/photo-1579783901586-d88db74b4fe4?w=800&q=80',
@@ -205,7 +197,6 @@ const products = [
     descriptionKo: '한정판 지클레 프린트. 아카이벌 페이퍼. 서명 및 넘버링. 25부 한정.',
     priceKRW: 450000,
     priceUSD: 360,
-    priceETH: '0.12',
     images: [
       'https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=800&q=80',
       'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&q=80',
@@ -225,7 +216,6 @@ const products = [
     descriptionKo: '6패널 캡. 자수 로고. 조절 가능한 스트랩.',
     priceKRW: 59000,
     priceUSD: 47,
-    priceETH: '0.016',
     images: [
       'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=800&q=80',
       'https://images.unsplash.com/photo-1534215754734-18e55d13e346?w=800&q=80',
@@ -245,7 +235,6 @@ const products = [
     descriptionKo: '립 니트 비니. 우븐 라벨. 프리사이즈.',
     priceKRW: 45000,
     priceUSD: 36,
-    priceETH: '0.012',
     images: [
       'https://images.unsplash.com/photo-1576871337622-98d48d1cf531?w=800&q=80',
       'https://images.unsplash.com/photo-1510598969022-c4c6c5d05769?w=800&q=80',
@@ -265,7 +254,6 @@ const products = [
     descriptionKo: '헤비 캔버스 토트백. 스크린 프린트. 내부 포켓.',
     priceKRW: 49000,
     priceUSD: 39,
-    priceETH: '0.013',
     images: [
       'https://images.unsplash.com/photo-1597633425046-08f5110420b5?w=800&q=80',
       'https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=800&q=80',
@@ -285,7 +273,6 @@ const products = [
     descriptionKo: '코튼 블렌드 크루 양말. 3가지 디자인 세트.',
     priceKRW: 35000,
     priceUSD: 28,
-    priceETH: '0.009',
     images: [
       'https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=800&q=80',
       'https://images.unsplash.com/photo-1631541911232-1c9f8b0d75e7?w=800&q=80',
@@ -305,7 +292,6 @@ const products = [
     descriptionKo: '핸드페인팅 비닐 피규어. 20cm. 전세계 100개 한정.',
     priceKRW: 189000,
     priceUSD: 150,
-    priceETH: '0.05',
     images: [
       'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
       'https://images.unsplash.com/photo-1594787318286-3d835c1d207f?w=800&q=80',
@@ -325,7 +311,6 @@ const products = [
     descriptionKo: '핸드페인팅 비닐 피규어. 20cm. 전세계 100개 한정.',
     priceKRW: 189000,
     priceUSD: 150,
-    priceETH: '0.05',
     images: [
       'https://images.unsplash.com/photo-1608889825103-eb5ed706fc64?w=800&q=80',
       'https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=800&q=80',
@@ -345,7 +330,6 @@ const products = [
     descriptionKo: '5가지 디자인 에나멜 핀 세트. 디스플레이 박스 포함.',
     priceKRW: 45000,
     priceUSD: 36,
-    priceETH: '0.012',
     images: [
       'https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?w=800&q=80',
       'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=800&q=80',
@@ -365,7 +349,6 @@ const products = [
     descriptionKo: '비닐 스티커 10장 세트. 방수 및 자외선 차단.',
     priceKRW: 15000,
     priceUSD: 12,
-    priceETH: '0.004',
     images: [
       'https://images.unsplash.com/photo-1601513445506-2ab0d4fb4229?w=800&q=80',
       'https://images.unsplash.com/photo-1572375992501-4b0892d50c69?w=800&q=80',
@@ -382,15 +365,13 @@ async function main() {
   console.log('Seeding database...')
 
   console.log('Creating admin user...')
-  const adminPassword = await hash('admin123!', 12)
   await prisma.admin.upsert({
-    where: { email: 'admin@freetenshi.com' },
+    where: { username: 'admin' },
     update: {},
     create: {
-      email: 'admin@freetenshi.com',
-      password: adminPassword,
+      username: 'admin',
+      password: 'admin123!',
       name: 'Admin',
-      role: 'SUPER_ADMIN',
     },
   })
 

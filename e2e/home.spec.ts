@@ -23,9 +23,4 @@ test.describe('Home Page', () => {
     await expect(page.locator('.product-card, [class*="product"]')).toHaveCount(4)
   })
 
-  test('should display NFT information section', async ({ page }) => {
-    await page.goto('/')
-    
-    await expect(page.getByText('Every Purchase = NFT')).toBeVisible()
-  })
 })
